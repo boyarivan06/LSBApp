@@ -15,6 +15,8 @@ using System.IO;
 using System.Windows.Shapes;
 using System.Drawing;
 using System.Text.Json;
+using Microsoft.Win32;
+
 
 namespace LSB
 {
@@ -44,22 +46,31 @@ namespace LSB
 
         private void openImage_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(image_name_box.Text))
-            {
-                
-                BI = new BitmapImage();
-                BI.BeginInit();
-                BI.UriSource = new Uri(image_name_box.Text, UriKind.Absolute);
-                BI.EndInit();
-                working_img.Stretch = Stretch.Fill;
-                working_img.Source = BI;
-                working_img.Visibility = Visibility.Visible;
-                warningLabel.Content = String.Empty;
-            }
+
+            var n = FileDialog(image_name_box, warningLabel);
+            BI = new BitmapImage();
+            BI.BeginInit();
+            if (image_name_box.Text.Length == 0) return;
+            BI.UriSource = new Uri(image_name_box.Text, UriKind.Absolute);
+            BI.EndInit();
+            working_img.Stretch = Stretch.Fill;
+            working_img.Source = BI;
+            working_img.Visibility = Visibility.Visible;
+            warningLabel.Content = String.Empty;
+            
+            
+        }
+
+        private int FileDialog(TextBox textBox, Label warninglabel)
+        {   
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            if (fileDialog.ShowDialog() == true)
+                textBox.Text = fileDialog.FileName;
             else
             {
-                warningLabel.Content = "Файл не найден";
+                warninglabel.Content = "Файл не выбран";
             }
+            return 0;
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
@@ -89,6 +100,7 @@ namespace LSB
             if (res == "DONE")
             {
                 ok_Label.Content = $"Текст успешно вcтроен, сохранено как ...{ DateTime.Now.Minute}.png";
+                warningLabel.Content = String.Empty;
                 string text_coords = String.Empty;
                 foreach (List<int> coord in lsb_hider.coords)
                 {
@@ -122,47 +134,37 @@ namespace LSB
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (save_coords_path.Text != String.Empty)
+            try
             {
-                try
-                {
-                    string slash = "\\";
-                    if (save_coords_path.Text[save_coords_path.Text.Length - 1] == '\\') slash = String.Empty;
-                    string path = save_coords_path.Text + slash + $"coords_{DateTime.Now.Hour}{DateTime.Now.Minute}.json";
-                    //coordsBox.Text = path;
-                    //System.Threading.Thread.Sleep(10000);
-                    path = path.Replace('\\', '/');
-                    File.WriteAllText(path, JsonSerializer.Serialize(lsb_hider.coords));
-                    saved_warning_label.Content = $"Сохранено как {path}";
-                }
-                catch (DirectoryNotFoundException de)
-                {
-                    save_file_warningBox.Text = "Введенной директории не существует";
-                }
-
+                string slash = "\\";
+                if (save_coords_path.Text[save_coords_path.Text.Length - 1] == '\\') slash = String.Empty;
+                string path = save_coords_path.Text + slash + $"coords_{DateTime.Now.Hour}{DateTime.Now.Minute}.json";
+                //coordsBox.Text = path;
+                //System.Threading.Thread.Sleep(10000);
+                path = path.Replace('\\', '/');
+                File.WriteAllText(path, JsonSerializer.Serialize(lsb_hider.coords));
+                saved_warning_label.Content = $"Сохранено как {path}";
             }
+            catch (DirectoryNotFoundException de)
+            {
+                save_file_warningBox.Text = "Введенной директории не существует";
+            }
+
+
         }
 
         private void openImageToRead(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(ImageToReadPathBox.Text))
-            {
-
-                BI2 = new BitmapImage();
-                BI2.BeginInit();
-                BI2.UriSource = new Uri(ImageToReadPathBox.Text, UriKind.Absolute);
-                BI2.EndInit();
-                ReadingImg.Stretch = Stretch.Fill;
-                ReadingImg.Source = BI2;
-                ReadingImg.Visibility = Visibility.Visible;
-                warningLabel2.Content = String.Empty;
-            }
-            else
-            {
-                warningLabel2.Content = "Файл не найден";
-            }
-
-
+            var n = FileDialog(ImageToReadPathBox, warningLabel2);
+            BI2 = new BitmapImage(); 
+            BI2.BeginInit();
+            if (ImageToReadPathBox.Text.Length == 0) { warningLabel.Content = "Не все в порядке"; return; }
+            BI2.UriSource = new Uri(ImageToReadPathBox.Text, UriKind.Absolute);
+            BI2.EndInit();
+            ReadingImg.Stretch = Stretch.Fill;
+            ReadingImg.Source = BI2;
+            ReadingImg.Visibility = Visibility.Visible;
+            warningLabel2.Content = String.Empty;
         }
         private void ReadedImageClose(object sender, RoutedEventArgs e)
         {
@@ -192,7 +194,7 @@ namespace LSB
             if (res == "DONE")
             {
                 ok_Label2.Content = "Текст успешно извлечен";
-
+                warningLabel2.Content = "";
 
                 result_textBox.Text = lsb_reader.text;
                 History.Add(new Action { time = DateTime.Now, coords = lsb_hider.coords, image_path = image_name_box.Text, type=2 });
@@ -225,6 +227,11 @@ namespace LSB
                 }
 
             }
+        }
+
+        private void openCoords_Click(object sender, RoutedEventArgs e)
+        {
+            FileDialog(coords_file_path_Box, warningLabel2);
         }
     }
 }

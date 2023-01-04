@@ -23,6 +23,7 @@ namespace LSB
         public string HideByCoords(string bit_text, Bitmap _b_image, List<List<int>> _coords=null)
         {
             Log($"in hide by coords: bit_text == {bit_text}");
+            Console.WriteLine(bit_text);
             b_image = _b_image;
             int length = bit_text.Length;
             int width = b_image.Width;
@@ -54,20 +55,13 @@ namespace LSB
                     return "Координаты некорректны";
                 }
                 Color new_pixel_Color;
-                if (pixel_Color.R % 2 < bit_text[n] % 2)
-                {
-                    new_pixel_Color = Color.FromArgb(pixel_Color.R + 1, pixel_Color.G, pixel_Color.B);
-                }
-                else if (pixel_Color.R % 2 > bit_text[n] % 2)
-                {
-                    new_pixel_Color = Color.FromArgb(pixel_Color.R - 1, pixel_Color.G, pixel_Color.B);
-                }
-                else
-                {
-                    new_pixel_Color = pixel_Color;
-                }
-
+                string old_color = Convert.ToString(pixel_Color.R, 2);
+                string new_color = string.Empty;
+                for (int i = 0; i < old_color.Length - 1; i++) new_color += old_color[i];
+                new_color += bit_text[n];
+                new_pixel_Color = Color.FromArgb(Convert.ToInt32(new_color, 2), pixel_Color.G, pixel_Color.B);
                 b_image.SetPixel(pair[0], pair[1], new_pixel_Color);
+                n++;
             }
             
             return "DONE";
@@ -84,7 +78,9 @@ namespace LSB
             {
                 try
                 {
-                    int b = b_img.GetPixel(pair[0], pair[1]).R % 2;
+                    var pixel = b_img.GetPixel(pair[0], pair[1]);
+                    Console.WriteLine(pixel.ToString(), pixel.R);
+                    int b = pixel.R % 2;
                     byte_result += b.ToString();
                 }
                 catch (ArgumentOutOfRangeException ae)

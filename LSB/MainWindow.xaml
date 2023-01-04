@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LSB"
-        mc:Ignorable="d"
+        mc:Ignorable="d" 
         Title="LSB" Height="700" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -37,19 +37,19 @@
                         <Button Grid.Column="1" Click="Button_Click" Content="Встроить" HorizontalAlignment="Left" Margin="212,30,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="146" Background="#FF28DF13"/>
                         <Button x:Name="closeButton" Click="closeButton_Click" Grid.Column="1" Content="Закрыть" HorizontalAlignment="Left" Margin="26,30,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="147" Background="#FFE10000"/>
                         <TextBox Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Left" Margin="383,30,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Height="28"/>
-                        <TextBox x:Name="image_name_box" HorizontalAlignment="Left" Margin="44,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162" Height="43"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="44,85,0,0" TextWrapping="Wrap" Text="Введите глобальный путь к файлу" VerticalAlignment="Top" Width="162" IsEnabled="False"/>
-                        <Button x:Name="openImage" Click="openImage_Click" Content="Открыть" HorizontalAlignment="Left" Margin="125,166,0,0" VerticalAlignment="Top" Width="81" />
-                        <Label x:Name="warningLabel" HorizontalAlignment="Left" Margin="20,18,0,0" VerticalAlignment="Top" Width="220" FontWeight="Bold" Foreground="Red" Height="18"/>
+                        <TextBox IsEnabled="False" x:Name="image_name_box" HorizontalAlignment="Left" Margin="44,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162" Height="43"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="44,85,0,0" TextWrapping="Wrap" Text="Выберите изображение" VerticalAlignment="Top" Width="162" IsEnabled="False"/>
+                        <Button x:Name="openImage" Click="openImage_Click" Content="Выбрать" HorizontalAlignment="Left" Margin="125,166,0,0" VerticalAlignment="Top" Width="81" />
+                        <Label x:Name="warningLabel" HorizontalAlignment="Left" Margin="20,18,0,0" VerticalAlignment="Top" Width="220" FontWeight="Bold" Foreground="Red" Height="62"/>
                         <TextBox x:Name="working_textBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="513" Height="63"/>
                         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Текст для встраивания" VerticalAlignment="Top"/>
                         <Label Grid.Column="1" x:Name="ok_Label" Foreground="Green" HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="476" Height="28"/>
                         <TextBox IsEnabled="False" x:Name="coordsBox" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" Height="76" Margin="7,26,0,0"/>
                         <TextBlock HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"><Run Text="Координаты изме"/><Run Language="ru-ru" Text="не"/><Run Text="нных пикселей"/></TextBlock>
-                        <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Введите путь в директорию для сохранения координат" VerticalAlignment="Top" Width="186"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Введите имя папки для сохранения координат" VerticalAlignment="Top" Width="186"/>
                         <TextBox x:Name="save_coords_path" HorizontalAlignment="Left" Margin="20,47,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Height="37"/>
                         <TextBlock x:Name="save_file_warningBox" Foreground="Red"  HorizontalAlignment="Left" Margin="16,121,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="150" Height="33"/>
-                        <Button Click="Button_Click_1" Content="Сохранить" HorizontalAlignment="Left" Margin="178,134,0,0" Grid.Row="2" VerticalAlignment="Top" Width="76" Height="20"/>
+                        <Button Click="Button_Click_1" Content="Сохранить" HorizontalAlignment="Left" Margin="164,114,0,0" Grid.Row="2" VerticalAlignment="Top" Width="76" Height="20"/>
                         <Label x:Name="saved_warning_label" Foreground="Blue" HorizontalAlignment="Left" Margin="20,98,0,0" Grid.Row="2" VerticalAlignment="Top" Width="492" Grid.ColumnSpan="2" Height="31"/>
 
                     </Grid>
@@ -74,19 +74,20 @@
                     <Button Grid.Column="1" Click="ReadImage" Content="Извлечь" HorizontalAlignment="Left" Margin="212,30,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="146" Background="#FF28DF13"/>
                     <Button Click="ReadedImageClose" Grid.Column="1" Content="Закрыть" HorizontalAlignment="Left" Margin="26,30,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="147" Background="#FFE10000"/>
                     <TextBox Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Left" Margin="383,30,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Height="28"/>
-                    <TextBox x:Name="ImageToReadPathBox" HorizontalAlignment="Left" Margin="44,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162" Height="43"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="44,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" IsEnabled="False"><Run Text="Введите глобальный путь к "/><Run Language="ru-ru" Text="изображению"/></TextBlock>
-                    <Button Click="openImageToRead" Content="Открыть" HorizontalAlignment="Left" Margin="125,166,0,0" VerticalAlignment="Top" Width="81" />
-                    <Label x:Name="warningLabel2" HorizontalAlignment="Left" Margin="20,18,0,0" VerticalAlignment="Top" Width="220" FontWeight="Bold" Foreground="Red" Height="30"/>
+                    <TextBox IsEnabled="False" x:Name="ImageToReadPathBox" HorizontalAlignment="Left" Margin="44,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162" Height="43"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="44,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" IsEnabled="False"><Run Language="ru-ru" Text="Выберите изображение"/></TextBlock>
+                    <Button Click="openImageToRead" Content="Выбрать" HorizontalAlignment="Left" Margin="125,166,0,0" VerticalAlignment="Top" Width="81" />
+                    <Label x:Name="warningLabel2" HorizontalAlignment="Left" Margin="20,18,0,0" VerticalAlignment="Top" Width="234" FontWeight="Bold" Foreground="Red" Height="62"/>
                     <TextBox x:Name="result_textBox" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="513" Height="87" Margin="0,42,0,0"/>
                     <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Извлеченный текст"/></TextBlock>
                     <Label x:Name="ok_Label2" Grid.Column="1" Foreground="Green" HorizontalAlignment="Left" Margin="216,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="216" Height="28"/>
-                    <TextBox x:Name="coords_file_path_Box" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" Height="60" Margin="7,42,0,0"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"><Run Language="ru-ru" Text="Введите глобальный путь к файлу с координатами"/></TextBlock>
+                    <TextBox x:Name="coords_file_path_Box" IsEnabled="False" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" Height="60" Margin="7,42,0,0"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"><Run Language="ru-ru" Text="Выбеите файл с координатами"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="186"><Run Text="Введите путь в директорию для сохранения "/><Run Language="ru-ru" Text="текста"/></TextBlock>
                     <TextBox x:Name="saveTextCoordsBox" HorizontalAlignment="Left" Margin="20,54,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Height="30"/>
                     <TextBlock  Foreground="Red"  HorizontalAlignment="Left" Margin="20,89,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="186"/>
                     <Button Click="saveText" Content="Сохранить" HorizontalAlignment="Left" Margin="130,110,0,0" Grid.Row="2" VerticalAlignment="Top" Width="76"/>
+                    <Button x:Name="openCoords" Click="openCoords_Click" Content="Выбрать" HorizontalAlignment="Left" Margin="130,102,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="76"/>
 
                 </Grid>
             </TabItem>
